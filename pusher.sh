@@ -19,7 +19,7 @@ if [ -f ".gitmodules" ]; then
                 if ! git diff --cached --quiet; then
                     git commit -m "$MESSAGE"
                 fi
-                git push origin main
+                git push origin "$(git branch --show-current)"
             fi
             popd > /dev/null
         fi
@@ -34,5 +34,5 @@ if ! git diff --cached --quiet; then
     git commit -m "$MESSAGE"
 fi
 echo -e "\e[35mPushing to GitHub...\e[0m"
-git push origin main
+git push origin "$(git branch --show-current)"
 echo -e "\e[32mDone with $PROJECT_NAME.\n\e[0m"
