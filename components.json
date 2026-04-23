@@ -1,0 +1,13 @@
+{
+	"rsc": true,
+	"tsx": true,
+	"rtl": false,
+	"registries": {},
+	"style": "radix-nova",
+	"menuColor": "default",
+	"menuAccent": "subtle",
+	"iconLibrary": "react-icons",
+	"$schema": "https://ui.shadcn.com/schema.json",
+	"tailwind": { "config": "", "css": "src/app/globals.css", "baseColor": "neutral", "cssVariables": true, "prefix": "" },
+	"aliases": { "components": "@/components", "utils": "@/lib/utils", "ui": "@/components/ui", "lib": "@/lib", "hooks": "@/hooks" }
+}

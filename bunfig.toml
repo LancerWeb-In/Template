@@ -1,0 +1,26 @@
+[install]
+exact = true
+optional = true
+linker = "hoisted"
+saveLockfile = true
+cache_dir = "./.bun-cache"
+linkWorkspacePackages = true
+
+[test]
+root = "."
+timeout = 10000
+exclude = ["evals/test-repos/**", "**/*.integration.test.*", "web/src/__tests__/e2e/**"]
+preload = ["./sdk/test/setup-env.ts", "./test/setup-scm-loader.ts", "./web/test/setup-globals.ts", "./test/setup-bigquery-mocks.ts"]
+pathIgnorePatterns = ["vendor/**", "node_modules/**", ".next/**", "dist/**", "build/**", "coverage/**", "**/fixtures/**", "**/mocks/**"]
+
+coverage = false
+coverageDir = "./coverage"
+coverageSkipTestFiles = true
+coverageReporter = ["text", "lcov"]
+coveragePathIgnorePatterns = [
+  "**/*.test.ts", "**/*.spec.ts", "**/*.e2e.ts",
+  ".next/**", "dist/**", "build/**", "generated/**",
+  "*.config.js", "*.config.ts", "**/drizzle.config.ts",
+  "**/*.generated.ts", "src/types/**", "src/**/*.d.ts",
+  "**/next.config.*", "**/postcss.config.*", "**/eslint.config.*",
+]

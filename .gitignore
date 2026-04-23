@@ -1,0 +1,92 @@
+# Environment Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+
+# Explicitly track these environment files
+!.env.example
+!.envrc
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+nul
+
+# Logs
+*.log
+logs/
+
+# Development & Build Artifacts
+*.tsbuildinfo
+.bun/
+.cache/
+.cache-loader/
+.next/
+.tmp/
+.turbo/
+.vercel/
+apps/*/.next/
+apps/*/dist/
+build/
+dist/
+next-env.d.ts
+out/
+packages/*/build/
+packages/*/dist/
+temp/
+tmp/
+
+# Node & Package Managers
+node_modules/
+
+# Python
+*.pyc
+*.pyd
+*.pyo
+__pycache__/
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.venv/
+venv/
+*.seed
+
+# Databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+drizzle/
+
+# Testing & Coverage
+*.pytest_cache/
+.coverage
+.eslintcache
+.nyc_output/
+.playwright/
+coverage/
+coverage-final.json
+htmlcov/
+junit.xml
+playwright-report/
+test-results/
+
+# Editor & IDE
+*.swo
+*.swp
+.idea/
+
+# System PIDs & Locks
+*.pid
+*.pid.lock
+
+# Docker
+docker-compose.override.yml
+
+# Cache
+nx-cache/

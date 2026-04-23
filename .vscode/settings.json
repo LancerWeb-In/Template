@@ -1,0 +1,15 @@
+{
+	"css.validate": false,
+	"less.validate": false,
+	"scss.validate": false,
+	"npm.packageManager": "bun",
+	"editor.formatOnSave": true,
+	"git.ignoreLimitWarning": true,
+	"json.schemaDownload.enable": false,
+	"eslint.workingDirectories": [{ "mode": "auto" }],
+	"[json]": { "editor.defaultFormatter": "rvest.vs-code-prettier-eslint" },
+	"[typescript]": { "editor.defaultFormatter": "vscode.typescript-language-features" },
+	"[python]": { "editor.formatOnSave": true, "editor.defaultFormatter": "ms-python.python", "editor.codeActionsOnSave": { "source.organizeImports": "always" } },
+	"files.exclude": { "**/.git": true, "**/.next": true, "**/.venv": true, "**/*.pyc": true, "**/.vercel": true, "**/drizzle": true, "**/__pycache__": true, "**/node_modules": true },
+	"search.exclude": { "**/.git": true, "**/.next": true, "**/.venv": true, "**/*.pyc": true, "**/.vercel": true, "**/drizzle": true, "**/__pycache__": true, "**/node_modules": true }
+}
