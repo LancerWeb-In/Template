@@ -171,7 +171,7 @@ Every tool call takes time. You MUST:
    - Key interactive elements and micro-interactions.
    - Visual themes and color applications.
    - Responsive behavior strategies.
-   Present this proposal to the user for feedback.
+     Present this proposal to the user for feedback.
 
 3. **Iterative Feedback Loop (THINK FIRST, MANDATORY):**
    Think carefully before each interaction:
