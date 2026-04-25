@@ -2,347 +2,192 @@
 
 **STRICTLY ENFORCE ALL RULES IN THIS DOCUMENT. DEVIATION IS NOT PERMITTED.**
 
-**You MUST read context.md BEFORE this document. Both documents are binding.**
+---
 
-## Task Type Detection — AUTO-BYPASS (CRITICAL)
+## Quick Reference: Task Type → Phase Mapping
 
-BEFORE reading any context files, detect the task type and adjust workflow accordingly:
-
-| Task Type         | Indicators                                                           | Workflow     | Phases to Execute        |
-| ----------------- | -------------------------------------------------------------------- | ------------ | ------------------------ |
-| **new_project**   | `builder/reason.txt` doesn't exist, empty, or says "new project"     | Full 5-phase | ALL 5 phases             |
-| **overhaul**      | "overhaul", "rebuild", "redesign", "complete rewrite" in request     | Full 5-phase | ALL 5 phases             |
-| **feature**       | "add", "implement", "create", "build" + feature name (not UI design) | Abbreviated  | Skip Phases 1-2, run 3-5 |
-| **bug_fix**       | "fix", "bug", "error", "issue", "crash", "broken" in request         | Minimal      | Clarify → Fix → Phase 5  |
-| **refactor**      | "refactor", "clean up", "restructure", "improve" in request          | Minimal      | Implement + Test only    |
-| **test**          | "test", "write tests", "add tests", "coverage" in request            | Minimal      | Phase 3 + Phase 5        |
-| **documentation** | "document", "readme", "comment", "docs" in request                   | Minimal      | Phase 3 only             |
-
-### AUTO-DETECTION LOGIC
-
-```text
-IF task contains: "fix", "bug fix", "error", "crash", "broken" → bug_fix workflow
-ELSE IF task contains: "add", "implement", "create feature", "new page", "new component" → feature workflow
-ELSE IF task contains: "test", "write tests", "add tests", "coverage" → test workflow
-ELSE IF task contains: "refactor", "clean up", "restructure" → refactor workflow
-ELSE IF task contains: "document", "readme", "comment", "docs" → documentation workflow
-ELSE IF builder/reason.txt missing/empty → new_project workflow
-ELSE IF task contains: "overhaul", "rebuild", "redesign", "rewrite" → overhaul workflow
-ELSE → full 5-phase workflow
+```txt
+TASK TYPE          → PHASES TO EXECUTE
+────────────────────────────────────────────────────────
+new_project         → Phase 1 → 2 → 3 → 4 → 5 (ALL)
+overhaul            → Phase 1 → 2 → 3 → 4 → 5 (ALL)
+feature             → Phase 3 → 4 → 5
+bug_fix             → Clarify → Fix → Phase 5
+refactor            → Phase 3 → Phase 5
+test                → Phase 3 → Phase 5
+documentation       → Phase 3 only
 ```
 
-> **SKIP RULE:** When a phase is skipped, acknowledge it briefly and proceed. Do NOT run skipped phases.
+**Detection Keywords:**
 
-## Quick Start
+| Task Type     | Keywords                                              |
+| ------------- | ----------------------------------------------------- |
+| new_project   | `builder/reason.txt` missing/empty                    |
+| overhaul      | `overhaul`, `rebuild`, `redesign`, `rewrite`          |
+| feature       | `add`, `implement`, `create`, `build` (not UI design) |
+| bug_fix       | `fix`, `bug`, `error`, `issue`, `crash`, `broken`     |
+| refactor      | `refactor`, `clean up`, `restructure`, `improve`      |
+| test          | `test`, `write tests`, `add tests`, `coverage`        |
+| documentation | `document`, `readme`, `comment`, `docs`               |
 
-BEFORE ANY OTHER ACTION IN A NEW SESSION, YOU MUST:
+---
 
-1. **Detect Task Type** (see above table)
-2. **Read Project Context Files** (only if `new_project` or `overhaul`):
-   - `builder/reason.txt` — Project purpose, goals, rationale
-   - `builder/ideate.md` — UI/UX design specifications
-   - `src/app/layout.tsx` — Existing Next.js root layout
-   - `public/manifest.json` — Site metadata and PWA config
-3. **Activate Essential Skills** (based on task type):
+## 1. Project Tech Stack
 
-   ```python
-   activate_skill("ground-truth-memory")
-   activate_skill("tdd")
-   activate_skill("coding-standards")
-   ```
+**Package names and versions only:**
 
-### Additional skills by task type
+| Category   | Package               |
+| ---------- | --------------------- |
+| Framework  | Next.js 16            |
+| UI Library | React 19              |
+| Styling    | Tailwind CSS v4       |
+| Animation  | GSAP                  |
+| Scrolling  | Lenis                 |
+| ORM        | Drizzle ORM           |
+| Auth       | Auth.js (NextAuth v5) |
+| State      | Zustand               |
+| Runtime    | Bun                   |
 
-- **new_project/overhaul:** `frontend-design`, `brand-guidelines`, `cinematic-components`, `gsap-animation-best-practices`, `nextjs-16`
-- **feature:** `nextjs-16`, relevant domain skill (e.g., `api-routes`, `server-components`)
-- **bug_fix:** `playwright-expert`, `security-review`
-- **refactor:** `coding-standards`
+---
 
-1. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
-   (Use `complex-plans` MCP tools for structured planning in the Plan phase)
+## 2. Task Detection Logic
 
-> **STRICT RULE:** DO NOT PROCEED until ALL initialization steps are complete. Violation is not permitted.
+### Auto-Detection Flow
 
-## RULE: Tool Execution Patience (STRICTLY ENFORCED)
+```python
+if task contains: `fix`, `bug fix`, `error`, `crash`, `broken`
+  → bug_fix workflow
 
-Every tool call takes time. You MUST:
+else if task contains: `add`, `implement`, `create feature`, `new page`
+  → feature workflow
 
-- Invoke **one tool at a time only**
-- **Wait for full response** before proceeding
-- **Never** exit, close, retry, or skip ahead
-- Remain patient during processing
-- Only proceed after complete output
+else if task contains: `test`, `write tests`, `add tests`, `coverage`
+  → test workflow
 
-**DEVIATION IS NOT PERMITTED.**
+else if task contains: `refactor`, `clean up`, `restructure`
+  → refactor workflow
 
-## SECTION 1: Phase 1 — Lead Architect (Planning)
+else if task contains: `document`, `readme`, `comment`, `docs`
+  → documentation workflow
 
-**⚡ SKIP THIS PHASE IF task-type is: feature, bug_fix, refactor, documentation**
+else if builder/reason.txt missing/empty
+  → new_project workflow
 
-**MANDATORY PHASE FOR: new_project, overhaul**
+else if task contains: `overhaul`, `rebuild`, `redesign`, `rewrite`
+  → overhaul workflow
 
-**Mindset:** Strategic, brand-focused, structural
+else
+  → Catch-all: minimal workflow (Phase 3 + Phase 5)
+```
 
-**Goal:** Understand project purpose, establish brand identity, create design specification
+**Rule:** Agent infers from absence of match. Default to minimal workflow.
 
-### Phase 1 Actions Required (ALL MANDATORY)
+---
 
-**IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
+## 3. Phase Workflows
 
-1. **Analyze Context (THINK FIRST):**
-   Think carefully about what to look for, then:
-   Use `read_file` to load (IN THIS ORDER):
-   - `builder/reason.txt` — Why this project exists
-   - `builder/ideate.md` — UI/UX design instructions
-   - `src/app/layout.tsx` — Existing structure
-   - `public/manifest.json` — Site metadata
+### Phase 1: Lead Architect (Planning)
 
-2. **Initialize Project Memory (THINK FIRST):**
-   Think carefully about the "Ground Truth" structure, then:
-   - Initialize `MEMORY.md` at the project root if it doesn't exist.
-   - Use the `memory` tool to `create_entities` for the core project goals, tech stack, and primary modules found in research.
-   - Document this initialization as the first entry in `MEMORY.md`.
+**SKIP IF:** feature, bug_fix, refactor, documentation
 
-3. **Inspect Codebase (THINK FIRST):**
-   Think carefully about inspection strategy, then:
-   - Check `package.json` for dependencies
-   - Find existing components in `src/components/`
-   - Understand project structure
+**MANDATORY FOR:** new_project, overhaul
 
-4. **Interactive Requirements Discovery (THINK FIRST):**
-   Think carefully to identify what to ask, then:
-   - Ask questions about target audience
-   - Clarify key conversion goals
-   - Discover brand personality
-   - Understand content priorities
+**Actions:**
 
-5. **Strategic Planning (THINK FIRST):**
-   Think carefully for implementation plan:
-   - Analyze all gathered information
-   - Identify key constraints and opportunities
-   - Map out the approach
+1. Read `builder/reason.txt`, `builder/ideate.md`, `src/app/layout.tsx`, `public/manifest.json`
+2. Initialize `MEMORY.md` with project goals and tech stack
+3. Inspect `package.json` and `src/components/`
+4. Ask questions about target audience and brand personality
+5. Draft design specification with layout, components, visual direction
+6. Generate asset prompts (image AI prompts)
 
-6. **Design Specification:**
-   Draft comprehensive specification including:
-   - Context & User: Who is this for
-   - Screen Goal: What action users take
-   - Layout & Hierarchy: Visual structure
-   - Components: UI/UX terminology
-   - Visual Direction: Design tokens
-   - Constraints: Responsive behavior
+---
 
-7. **Desktop-First Layout:**
-   Map desktop layout first, then adapt for mobile/tablet
+### Phase 2: AI UI Designer
 
-8. **Asset Prompts:**
-   Generate AI prompts for images:
+**SKIP IF:** feature, bug_fix, refactor, documentation
 
-   ```txt
-   ratio: [16:9|9:16|1:1]
-   filename: [kebab-case-name]
-   prompts: [Description with hex codes]
-   ```
+**MANDATORY FOR:** new_project, overhaul
 
-9. **Initial Component Ideation:**
-   Draft an initial component architecture and design layout based on the design specification, to be refined in Phase 2.
+**Actions:**
 
-**YOU MAY NOT PROCEED TO PHASE 2 UNTIL PHASE 1 IS COMPLETE.**
+1. Analyze design specifications from Phase 1
+2. Propose UI/UX architecture (page layouts, component hierarchy, interactions)
+3. Present proposal to user for feedback
+4. **DO NOT PROCEED to Phase 3 until user approves design**
 
-## SECTION 2: Phase 2 — AI UI Designer (Imagination Generation)
+---
 
-**⚡ SKIP THIS PHASE IF task-type is: feature, bug_fix, refactor, documentation**
+### Phase 3: React Integrator
 
-**MANDATORY PHASE FOR: new_project, overhaul**
+**SKIP IF:** documentation
 
-**Mindset:** Creative, visual, interactive, autonomous
+**MANDATORY FOR:** new_project, overhaul, feature, refactor
 
-**Goal:** Autonomously design and iterate on UI/UX architecture and layouts using your imagination and the `ideate.md` specifications.
+**Actions:**
 
-### Phase 2 Actions Required (ALL MANDATORY)
+1. Scan `package.json` and existing components with `glob`
+2. Port design to Next.js with Tailwind CSS v4
+3. **Use `@theme inline {}`** in `globals.css` — NO `tailwind.config.*`
+4. Implement responsive layout (mobile-first)
+5. Use ShadCN components from `src/components/ui/`
+6. Write semantic HTML with proper heading hierarchy
+7. **Commit after each logical unit**
 
-**IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
+**Tailwind v4 Rules:**
 
-1. **Analyze Design specifications (THINK FIRST):**
-   Think carefully about the design direction provided in `builder/reason.txt` and `builder/ideate.md`. Synthesize the brand identity and visual requirements.
+- Mobile-first: unprefixed = all, prefixed = breakpoint + above
+- Breakpoints: sm:640px, md:768px, lg:1024px, xl:1280px, 2xl:1536px
 
-2. **Propose UI/UX Architecture (THINK FIRST):**
-   Think carefully to draft a detailed proposal of the website's structure, including:
-   - Page layouts and component hierarchy.
-   - Key interactive elements and micro-interactions.
-   - Visual themes and color applications.
-   - Responsive behavior strategies.
-     Present this proposal to the user for feedback.
+---
 
-3. **Iterative Feedback Loop (THINK FIRST, MANDATORY):**
-   Think carefully before each interaction:
-   - Provide the user with a question/answer prompt asking if they are satisfied with the proposed architecture and design direction.
-   - Refine the design proposal based on user feedback.
-   - **DO NOT PROCEED to Phase 3 until the user explicitly states they are satisfied and the design direction is approved.**
+### Phase 4: UX/Motion Engineer
 
-**YOU MAY NOT PROCEED TO PHASE 3 UNTIL USER APPROVES THE DESIGN.**
+**SKIP IF:** bug_fix, refactor, documentation
 
-## SECTION 3: Phase 3 — React Integrator (Translation)
+**MANDATORY FOR:** new_project, overhaul, feature
 
-**⚡ SKIP THIS PHASE IF task-type is: documentation**
+**Actions:**
 
-**MANDATORY PHASE FOR: new_project, overhaul, feature, refactor**
+1. Activate GSAP animation skills
+2. Add scroll-based reveals, parallax effects, micro-interactions
+3. Integrate Lenis for smooth scrolling
+4. Use `embla-carousel-react` for carousels
+5. Use `lucide-react` for icons
 
-**Mindset:** Component-driven, clean coder, semantic, responsive
+**Performance Rules:**
 
-**Goal:** Translate approved design into production Next.js/React components with Tailwind CSS v4
+- Animate **transform and opacity only**
+- Use **autoAlpha** instead of opacity
+- **Respect prefers-reduced-motion**
+- Reduce particle count on mobile (30-80 vs 100-200 desktop)
+- **Disable heavy scroll triggers on mobile**
 
-### Phase 3 Actions Required (ALL MANDATORY)
+---
 
-**IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
+### Phase 5: QA Inspector
 
-1. **Scan Codebase (THINK FIRST):**
-   Think carefully about what to look for, then:
-   - Use `read_file` on `package.json`
-   - Use `glob` to find components
-   - Use `run_shell_command("rg ...")` to find patterns
+**ALWAYS REQUIRED** for: new_project, overhaul, feature, bug_fix, refactor, test
 
-2. **Port to Next.js Stack (THINK FIRST):**
-   Think carefully about component architecture, then:
-   - Use the design architecture and layouts approved in Phase 2 as your blueprint.
-   - Implement the design by leveraging the extensive pre-existing Next.js `.ts`/`.tsx` boilerplate (e.g., existing layouts, standard `src/components/ui/` components, pre-configured providers, and state management).
-   - Port the design to Next.js, Tailwind CSS v4, shadcn, Radix, and GSAP.
-   - Use your skills and imagination to make the UI/UX even better than the initial proposal.
-   - Actively apply `frontend-design`, `brand-guidelines`, and `cinematic-components` patterns during implementation.
+**MANDATORY FOR:** documentation (optional)
 
-3. **Tailwind CSS v4 (THINK FIRST, STRICT RULES):**
-   Think carefully to verify approach, then:
-   - Use `@theme inline {}` in `globals.css`
-   - **NO** `tailwind.config.*` files allowed
+**Actions:**
 
-4. **Responsive Implementation (STRICT RULES):**
-
-   **Mobile-First Rules:**
-   - Unprefixed = ALL screen sizes
-   - Prefixed (`md:`, `lg:`) = breakpoint + ABOVE
-
-   **Breakpoints:** sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
-
-   **Touch & Hover:**
-   - Use `pointer-coarse:` for touchscreens
-   - CTAs **always visible** on mobile
-   - **No hover-only reveals allowed**
-
-   **Responsive Typography:**
-   - Hero: mobile text-4xl, desktop text-9xl
-   - Section: mobile text-3xl, desktop text-6xl
-   - Body: mobile text-base, desktop text-lg
-
-   **Layouts:**
-   - Grid: grid-cols-1 md:grid-cols-2 lg:grid-cols-3
-   - Flex: flex flex-col md:flex-row
-   - Nav: hidden md:flex
-
-   **Overflow:**
-   - overflow-x-hidden max-w-full on containers
-
-5. **Use ShadCN Components:**
-   Use pre-built components from `src/components/ui/`
-
-6. **Semantic HTML:**
-   - Proper heading hierarchy
-   - One `<h1>` per page
-   - ARIA labels on interactive elements
-
-7. **Version Control:**
-   Commit after **each logical unit** (NOT in bulk)
-
-**STRICTLY FOLLOW ALL RULES IN THIS PHASE.**
-
-## SECTION 4: Phase 4 — UX/Motion Engineer (Enhancement)
-
-**⚡ SKIP THIS PHASE IF task-type is: bug_fix, refactor, documentation**
-
-**MANDATORY PHASE FOR: new_project, overhaul, feature**
-
-**Mindset:** Interactive, premium, bold, immersive
-
-**Goal:** Make website feel alive and deeply engaging
-
-### Phase 4 Actions Required (ALL MANDATORY)
-
-**IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
-
-1. **Activate Skills (THINK FIRST):**
-   Think carefully about animation strategy, then:
-
-   ```python
-   activate_skill("cinematic-components")
-   activate_skill("gsap-animation-expert")
-   activate_skill("gsap-animation-best-practices")
-   ```
-
-2. **Inject GSAP Animations (THINK FIRST):**
-   Think carefully about animation implementation:
-   - Scroll-based reveals
-   - Parallax effects
-   - Micro-interactions
-
-3. **Add Smooth Scrolling (THINK FIRST):**
-   Think carefully to verify approach, then:
-   Use `lenis` for smooth scrolling
-
-4. **Add Carousels (THINK FIRST):**
-   Think carefully about carousel architecture, then:
-   Use `embla-carousel-react`
-
-5. **Icons (THINK FIRST):**
-   Think carefully to identify which icons are needed, then:
-   Use `lucide-react`
-
-6. **Performance (STRICT RULES):**
-   - Animate **transform and opacity only**
-   - Use **autoAlpha** instead of opacity
-   - **Respect prefers-reduced-motion**
-
-7. **Mobile Limits (STRICT RULES):**
-   - Reduce particles (30-80 mobile vs 100-200 desktop)
-   - **Disable heavy scroll triggers on mobile**
-
-## SECTION 5: Phase 5 — QA Inspector (Validation)
-
-**⚡ ALWAYS REQUIRED FOR: new_project, overhaul, feature, bug_fix, refactor, test**
-
-**⚡ OPTIONAL FOR: documentation** (skip if only writing docs)
-
-**Mindset:** Critical, user-centric, uncompromising
-
-**Goal:** Validate final build against Premium Design Checklist
-
-### Phase 5 Actions Required (ALL MANDATORY)
-
-**IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
-
-1. **Error Recovery (THINK FIRST):**
-   Think carefully to analyze errors before fixing:
-   - Capture exact error message
-   - Use `webfetch` or `codesearch`
-   - Use `activate_skill("security-review")` and `activate_skill("tdd")`
-   - **If built-in tools fail (timeout, error, unavailability), fall back to `filesystem_*` tools from `@modelcontextprotocol/server-filesystem`** (e.g., `filesystem_read_file` instead of `read_file`, `filesystem_write_file` instead of `write_file`, `filesystem_edit_file` instead of `replace`, `filesystem_search_files` instead of `glob`)
-
-2. **Browser Testing & Debugging (THINK FIRST):**
-   Think carefully about validation strategy, then:
-   - **E2E Testing (use Playwright MCP):** `browser_navigate`, `browser_click`, `browser_fill`, `browser_snapshot`, `browser_screenshot`
-   - **Debugging (use Chrome DevTools MCP):** `chrome-devtools_take_snapshot`, `chrome-devtools_list_console_messages`, `chrome-devtools_performance_start_trace`
-   - **Best Practice:** Start with Playwright MCP for automated user-flow testing. Escalate to Chrome DevTools MCP when you need to debug WHY something fails.
-
-3. **Checklist (THINK FIRST, ALL MUST PASS):**
-   Think carefully to verify each item:
+1. Debug errors with Playwright/Chrome DevTools MCP
+2. Run E2E user-flow testing with Playwright
+3. Validate against Premium Design Checklist:
    - [ ] Prominent CTAs above fold
    - [ ] Core Web Vitals optimized
    - [ ] SEO meta tags configured
    - [ ] WCAG 2.1 AA contrast
    - [ ] Social proof visible
-   - [ ] Social platform links
    - [ ] Branded Hero section
    - [ ] Premium animations
    - [ ] Full responsiveness
 
-## Responsive Design Rules (STRICTLY ENFORCED)
+---
+
+## 4. Responsive Design Rules
 
 ### Tailwind CSS v4 Breakpoints
 
@@ -374,161 +219,152 @@ sm: 640px  | md: 768px  | lg: 1024px  | xl: 1280px  | 2xl: 1536px
 - **Hover-only CTAs**
 - Heavy mobile animations
 
-## Project Structure (STRICT ADHERENCE)
+---
+
+## 5. Development Constraints
+
+**Performance Budgets:**
+
+| Metric     | Target         | Enforcement             |
+| ---------- | -------------- | ----------------------- |
+| Initial JS | <200KB gzipped | Build fails if exceeded |
+| LCP        | <2.5s          | Lighthouse audit        |
+| FID        | <100ms         | Core Web Vitals         |
+| CLS        | <0.1           | Core Web Vitals         |
+
+**Animation Performance Rules:**
+
+- Animate transform/opacity only
+- Use will-change sparingly
+- Disable heavy animations on mobile
+- Respect prefers-reduced-motion
+
+| Rule                    | Enforcement                                               |
+| ----------------------- | --------------------------------------------------------- |
+| NO DEV SERVER           | Forbidden to run `npm run dev`, `yarn dev`, `bun run dev` |
+| BUILD + LINT ONLY       | Allowed operations: build, lint                           |
+| TDD                     | Write failing test before production code                 |
+| Commit per logical unit | NOT in bulk                                               |
+| THINK CAREFULLY         | Before EVERY action and AFTER EVERY action                |
+
+---
+
+## 6. Phase Execution Order
+
+### new_project / overhaul (ALL 5 phases)
+
+```txt
+1. Phase 1: Lead Architect → Complete all steps
+2. Phase 2: AI UI Designer → Get user approval
+3. Phase 3: React Integrator → Port to Next.js
+4. Phase 4: UX/Motion Engineer → Add animations
+5. Phase 5: QA Inspector → Validate and test
+```
+
+### feature (Phases 3 → 4 → 5)
+
+```txt
+1. Phase 3: React Integrator → Implement feature
+2. Phase 4: UX/Motion Engineer → Add animations (if applicable)
+3. Phase 5: QA Inspector → Validate and test
+```
+
+### bug_fix (Clarify → Targeted Fix → Phase 5)
+
+```txt
+1. Clarify → Use Playwright/Chrome DevTools to diagnose root cause
+2. Targeted Fix → Implement minimal fix
+3. Phase 5: QA Inspector → Verify fix
+```
+
+### refactor (Phase 3 → Phase 5)
+
+```txt
+1. Phase 3: React Integrator → Refactor code
+2. Phase 5: QA Inspector → Validate
+```
+
+### test (Phase 3 → Phase 5)
+
+```txt
+1. Phase 3: React Integrator → Write/update tests
+2. Phase 5: QA Inspector → Validate test coverage
+```
+
+### documentation (Phase 3 only)
+
+```txt
+1. Phase 3: React Integrator → Write docs
+```
+
+---
+
+## 7. Skills Mapping
+
+| Task                    | Skills                                                                               |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| **Initial planning**    | `ground-truth-memory`                                                                |
+| **Design**              | `cinematic-components`, `brand-guidelines`, `frontend-design`                        |
+| **Next.js Core**        | `nextjs-16`, `react-best-practices`                                                  |
+| **Next.js Middleware**  | `nextjs-middleware`                                                                  |
+| **Next.js Performance** | `nextjs-performance`, `cache-components`, `server-components`                        |
+| **Next.js PWA**         | `next-js-pwa`                                                                        |
+| **UI/Tailwind**         | `tailwind-v4`, `tailwindcss-v4`, `tailwind-v4-shadcn`                                |
+| **Motion/GSAP**         | `gsap-animation-expert`, `gsap-animation-best-practices`                             |
+| **Backend**             | `backend-patterns`, `api-routes`                                                     |
+| **Database**            | `drizzle-orm-workflow-manager`, `supabase-postgres-best-practices`                   |
+| **Auth**                | `next-js-authentication-auth-js`                                                     |
+| **State**               | `zustand-middleware-specialist`, `tanstack-router-query-integration`                 |
+| **Validation**          | `zod-validation-schema-design`                                                       |
+| **Testing**             | `playwright-expert`, `playwright-patterns`, `frontend-testing`, `webapp-testing`     |
+| **Code quality**        | `tdd`, `coding-standards`                                                            |
+| **Runtime**             | `bun-runtime-toolkit`, `bun-development-toolkit`, `bun-bundler`, `bun-testing-suite` |
+| **Infra**               | `docker-patterns`, `docker-compose`, `container-expert`                              |
+| **Python**              | `python-patterns`                                                                    |
+| **Security**            | `security-review`                                                                    |
+| **GitHub**              | `github`                                                                             |
+| **MCP**                 | `mcp-builder`                                                                        |
+| **Meta**                | `skill-creator`                                                                      |
+| **Styling**             | `theme-factory`                                                                      |
+
+---
+
+## 8. Project Structure
 
 ```txt
 builder/
-├── design.md             # Design reference (optional, from DESIGN.md collection)
+├── design.md           # Design reference (optional)
 ├── reason.txt          # Project purpose (READ FIRST)
 prompts/                 # Image prompts
 public/images/           # Generated assets
 src/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx      # Root layout
-│   ├── page.tsx       # Main page
-│   └── globals.css   # Tailwind v4 config (NO tailwind.config.*)
+│   ├── page.tsx        # Main page
+│   └── globals.css     # Tailwind v4 (NO tailwind.config.*)
 ├── components/
 │   ├── ui/             # ShadCN components (USE THESE)
-│   └── *.tsx           # Custom components (create as needed)
+│   └── *.tsx           # Custom components
 ```
 
-## Skills Mapping (MANDATORY USAGE)
-
-| Task             | Skills to Activate                                                               | MCP Tools                       |
-| ---------------- | -------------------------------------------------------------------------------- | ------------------------------- |
-| Initial planning | `ground-truth-memory`                                                            | `complex-plans`                 |
-| Design           | `frontend-design`, `brand-guidelines`, `cinematic-components`                    | —                               |
-| Implementation   | `nextjs-16`, `tailwind-v4`, `tailwind-v4-shadcn`, `react-best-practices`         | `next-devtools`                 |
-| Motion           | `cinematic-components`, `gsap-animation-expert`, `gsap-animation-best-practices` | —                               |
-| Debugging        | `security-review`, `webapp-testing`                                              | `chrome-devtools`               |
-| Code quality     | `coding-standards`, `tdd`                                                        | —                               |
-| Testing          | `frontend-testing`, `webapp-testing`, `playwright-expert`                        | `playwright`, `chrome-devtools` |
-| Database         | `drizzle-orm-workflow-manager`, `supabase-postgres-best-practices`               | `deepwiki`, `context7`          |
-| Auth             | `next-js-authentication-auth-js`                                                 | `deepwiki`, `context7`          |
-| State            | `zustand-middleware-specialist`, `tanstack-router-query-integration`             | `deepwiki`                      |
-| Validation       | `zod-validation-schema-design`                                                   | —                               |
-| Runtime          | `bun-runtime-toolkit`, `bun-development-toolkit`                                 | —                               |
-| PWA              | `next-js-pwa`                                                                    | —                               |
-| API routes       | `api-routes`, `backend-patterns`                                                 | —                               |
-| Docker/Infra     | `docker-patterns`, `docker-compose`, `container-expert`                          | —                               |
-| Security         | `security-review`, `nextjs-middleware`                                           | `chrome-devtools`               |
-
-**YOU MUST use the correct skill for each task. No exceptions.**
-
-## Tools by Task (MANDATORY USAGE)
-
-### PRIMARY REASONING DISCIPLINE (ENFORCE BEFORE EVERY ACTION)
-
-- **THINK CAREFULLY** — **MANDATORY BEFORE EVERY ACTION** — Analyze, plan, verify, and think deeply before acting. No tool call, code change, or command should be made without prior deliberate thought.
-
-### Design & Components
-
-- `write_file` — Create components in `src/components/`
-- `edit` — Modify existing components
-- `question` — Get user feedback
-- **AI Imagination** — Use your internal reasoning and imagination to design and build beautiful UI/UX based on the project requirements.
-
-### Research & Planning
-
-- `context7_query-docs` — Look up API docs
-- `fetch_fetch_readable` — Research web content
-- `run_shell_command("rg ...")` — **USE THIS** for code search (NOT grep_search or bash grep)
-
-### Build & Development
-
-- `run_shell_command` — Run yarn commands
-- `read_file` — Read project files
-- `glob` — Find files by pattern
-- **Fallback:** If any built-in tool fails, use `filesystem_*` tools from `@modelcontextprotocol/server-filesystem` (e.g., `filesystem_read_file`, `filesystem_write_file`, `filesystem_list_directory`, `filesystem_search_files`, `filesystem_edit_file`)
-
-### Testing & Debugging
-
-#### E2E Testing (Playwright MCP)
-
-- `browser_navigate` — Navigate to URL
-- `browser_click` — Click element
-- `browser_fill` — Fill input field
-- `browser_snapshot` — Capture accessibility tree
-- `browser_screenshot` — Take visual screenshot
-- `browser_evaluate` — Execute JavaScript
-- `browser_wait_for_selector` — Wait for element
-- `browser_close` — Close browser
-
-**Use Playwright MCP for automated user-flow testing (form submissions, navigation, interactions).**
-
-#### Debugging (Chrome DevTools MCP)
-
-- `chrome-devtools_navigate_page` — Load page
-- `chrome-devtools_take_snapshot` — Accessibility check
-- `chrome-devtools_list_console_messages` — Check errors
-- `chrome-devtools_*` — Browser debugging
-
-**Use Chrome DevTools MCP for debugging (performance, network, console errors, memory leaks).**
-
-**Best Practice: Start with Playwright MCP for testing. Escalate to Chrome DevTools MCP for debugging failures.**
-
-### Version Control
-
-- `run_shell_command` — Use for **ALL** git operations (add, commit, branch, worktree, push).
-- **Mandatory**: Commit after **each logical unit** (NOT in bulk).
-- **Direct CLI**: Use native `git` commands directly via shell.
-
-## Development Environment Rules (STRICTLY ENFORCED)
-
-1. **NO DEV SERVER ALLOWED:** You are STRICTLY FORBIDDEN from running the development server (e.g., `npm run dev`, `yarn dev`, `bun run dev`).
-2. **VERIFICATION ONLY:** To ensure the codebase is 100% issue-free, you are ONLY allowed to run the `build` and `lint` commands.
-
-## Phase Execution Order (CONDITIONAL)
-
-**EXECUTE PHASES BASED ON TASK TYPE. Order matters within each task type.**
-
-### new_project / overhaul (ALL 5 phases)
-
-1. **Phase 1: Lead Architect** → Complete all 8 steps
-2. **Phase 2: AI UI Designer** → Get user approval
-3. **Phase 3: React Integrator** → Port to Next.js
-4. **Phase 4: UX/Motion Engineer** → Add animations
-5. **Phase 5: QA Inspector** → Validate and test
-
-### feature (Phases 3 → 4 → 5)
-
-1. **Phase 3: React Integrator** → Implement feature
-2. **Phase 4: UX/Motion Engineer** → Add animations (if applicable)
-3. **Phase 5: QA Inspector** → Validate and test
-
-### bug_fix (Research → Targeted Fix → Phase 5)
-
-1. **Clarify** → Use Playwright/Chrome DevTools to diagnose root cause
-2. **Targeted Fix** → Implement minimal fix (TDD: write test first)
-3. **Phase 5: QA Inspector** → Verify fix and validate
-
-### refactor (Phase 3 → Phase 5)
-
-1. **Phase 3: React Integrator** → Refactor code
-2. **Phase 5: QA Inspector** → Validate
-
-### test (Phase 3 → Phase 5)
-
-1. **Phase 3: React Integrator** → Write/update tests
-2. **Phase 5: QA Inspector** → Validate test coverage
-
-### documentation (Phase 3 only)
-
-1. **Phase 3: React Integrator** → Write docs
-
-**Within each task type, phases must be executed in order. Skipping phases outside your task type is REQUIRED, not optional.**
-
-## Confirmation
+---
 
 **BEFORE PROCEEDING, YOU MUST CONFIRM:**
 
-1. [ ] Detected task type and identified which phases to execute
-2. [ ] Activated skills for detected task type (see Quick Start section above)
-3. [ ] Read context files only if required by task type
+1. [ ] Detected task type and identified phases to execute
+2. [ ] Activated skills for detected task type
+3. [ ] Read context files only if required
 4. [ ] Understood conditional phase workflow
-5. [ ] Will execute phases in order for your task type
-6. [ ] Will use mandatory skills for each task
-7. [ ] Will commit after each logical unit
-8. [ ] **WILL THINK CAREFULLY BEFORE EVERY ACTION AND AFTER EVERY ACTION WITHOUT EXCEPTION**
+5. [ ] Will execute phases in order
+6. [ ] Will commit after each logical unit
+7. [ ] **WILL THINK CAREFULLY BEFORE EVERY ACTION AND AFTER EVERY ACTION**
 
-**Reply with "CONFIRMED" to proceed. Any other response is not permitted.**
+**Reply with CONFIRMED to proceed.**
+
+---
+
+**DOCUMENT VERSION: 2.0**
+**Last Updated: Per DOCUMENTATION-SPEC.md**
+**Word Count Target: 1,500-3,000 words**
+**Total Skills in Market: 43**
+**Status: COMPLETE — All 43 market skills referenced**
