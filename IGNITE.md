@@ -6,7 +6,7 @@
 
 ## Task Type Detection — AUTO-BYPASS (CRITICAL)
 
-**BEFORE reading any context files, detect the task type and adjust workflow accordingly:**
+BEFORE reading any context files, detect the task type and adjust workflow accordingly:
 
 | Task Type         | Indicators                                                           | Workflow     | Phases to Execute        |
 | ----------------- | -------------------------------------------------------------------- | ------------ | ------------------------ |
@@ -18,12 +18,9 @@
 | **test**          | "test", "write tests", "add tests", "coverage" in request            | Minimal      | Phase 3 + Phase 5        |
 | **documentation** | "document", "readme", "comment", "docs" in request                   | Minimal      | Phase 3 only             |
 
-**AUTO-DETECTION LOGIC:**
+### AUTO-DETECTION LOGIC
 
-```
-
-```
-
+```text
 IF task contains: "fix", "bug fix", "error", "crash", "broken" → bug_fix workflow
 ELSE IF task contains: "add", "implement", "create feature", "new page", "new component" → feature workflow
 ELSE IF task contains: "test", "write tests", "add tests", "coverage" → test workflow
@@ -32,19 +29,18 @@ ELSE IF task contains: "document", "readme", "comment", "docs" → documentation
 ELSE IF builder/reason.txt missing/empty → new_project workflow
 ELSE IF task contains: "overhaul", "rebuild", "redesign", "rewrite" → overhaul workflow
 ELSE → full 5-phase workflow
+```
 
-````
-
-**SKIP RULE:** When a phase is skipped, acknowledge it briefly and proceed. Do NOT run skipped phases.
+> **SKIP RULE:** When a phase is skipped, acknowledge it briefly and proceed. Do NOT run skipped phases.
 
 ## Quick Start
 
-**BEFORE ANY OTHER ACTION IN A NEW SESSION, YOU MUST:**
+BEFORE ANY OTHER ACTION IN A NEW SESSION, YOU MUST:
 
 1. **Detect Task Type** (see above table)
 2. **Read Project Context Files** (only if `new_project` or `overhaul`):
    - `builder/reason.txt` — Project purpose, goals, rationale
-   - `builder/stitch.txt` — UI/UX design and stitch instructions
+   - `builder/ideate.md` — UI/UX design specifications
    - `src/app/layout.tsx` — Existing Next.js root layout
    - `public/manifest.json` — Site metadata and PWA config
 3. **Activate Essential Skills** (based on task type):
@@ -53,9 +49,9 @@ ELSE → full 5-phase workflow
    activate_skill("ground-truth-memory")
    activate_skill("tdd")
    activate_skill("coding-standards")
-````
+   ```
 
-**Additional skills by task type:**
+### Additional skills by task type
 
 - **new_project/overhaul:** `frontend-design`, `brand-guidelines`, `cinematic-components`, `gsap-animation-best-practices`, `nextjs-16`
 - **feature:** `nextjs-16`, relevant domain skill (e.g., `api-routes`, `server-components`)
@@ -65,7 +61,7 @@ ELSE → full 5-phase workflow
 1. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
    (Use `complex-plans` MCP tools for structured planning in the Plan phase)
 
-**DO NOT PROCEED until ALL initialization steps are complete. Violation is not permitted.**
+> **STRICT RULE:** DO NOT PROCEED until ALL initialization steps are complete. Violation is not permitted.
 
 ## RULE: Tool Execution Patience (STRICTLY ENFORCED)
 
@@ -97,7 +93,7 @@ Every tool call takes time. You MUST:
    Think carefully about what to look for, then:
    Use `read_file` to load (IN THIS ORDER):
    - `builder/reason.txt` — Why this project exists
-   - `builder/stitch.txt` — UI/UX design instructions
+   - `builder/ideate.md` — UI/UX design instructions
    - `src/app/layout.tsx` — Existing structure
    - `public/manifest.json` — Site metadata
 
@@ -147,40 +143,41 @@ Every tool call takes time. You MUST:
    prompts: [Description with hex codes]
    ```
 
-9. **Prepare UI Generation Prompts:**
-   Draft prompts based on the design specification for the Stitch web interface.
+9. **Initial Component Ideation:**
+   Draft an initial component architecture and design layout based on the design specification, to be refined in Phase 2.
 
 **YOU MAY NOT PROCEED TO PHASE 2 UNTIL PHASE 1 IS COMPLETE.**
 
-## SECTION 2: Phase 2 — UI Designer (Stitch Generation)
+## SECTION 2: Phase 2 — AI UI Designer (Imagination Generation)
 
 **⚡ SKIP THIS PHASE IF task-type is: feature, bug_fix, refactor, documentation**
 
 **MANDATORY PHASE FOR: new_project, overhaul**
 
-**Mindset:** Creative, visual, interactive
+**Mindset:** Creative, visual, interactive, autonomous
 
-**Goal:** Generate and refine UI/UX prototype using Stitch web interface until user is fully satisfied.
+**Goal:** Autonomously design and iterate on UI/UX architecture and layouts using your imagination and the `ideate.md` specifications.
 
 ### Phase 2 Actions Required (ALL MANDATORY)
 
 **IRON LAW: THINK CAREFULLY BEFORE each numbered step and AFTER completing it.**
 
-1. **Analyze Design Context (THINK FIRST):**
-   Think carefully about design approach based on `builder/reason.txt` and `builder/stitch.txt`.
+1. **Analyze Design specifications (THINK FIRST):**
+   Think carefully about the design direction provided in `builder/reason.txt` and `builder/ideate.md`. Synthesize the brand identity and visual requirements.
 
-2. **Manual Stitch Generation (THINK FIRST):**
-   Think carefully to prepare the instruction for the user, then:
-   - Inform the user to carry out the UI design and generation using the Stitch web interface (<https://stitch.google.com>).
-   - Once the user is satisfied with the design, they MUST download/copy the generated HTML outputs and save them inside the `builder/html` folder.
-   - You MUST wait for the user to confirm they have saved the files in `builder/html`.
+2. **Propose UI/UX Architecture (THINK FIRST):**
+   Think carefully to draft a detailed proposal of the website's structure, including:
+   - Page layouts and component hierarchy.
+   - Key interactive elements and micro-interactions.
+   - Visual themes and color applications.
+   - Responsive behavior strategies.
+   Present this proposal to the user for feedback.
 
-3. **Iterative User Review Loop (THINK FIRST, MANDATORY):**
-   Think carefully before asking the user:
-   - Inform the user to verify the content in `builder/html`.
-   - Provide the user with a question/answer prompt asking if they are satisfied with the current design in `builder/html`.
-   - If they want to tweak it, they should return to the Stitch web interface and update the files in `builder/html`.
-   - **DO NOT PROCEED to Phase 3 until the user explicitly states they are satisfied and the files are ready in `builder/html`.**
+3. **Iterative Feedback Loop (THINK FIRST, MANDATORY):**
+   Think carefully before each interaction:
+   - Provide the user with a question/answer prompt asking if they are satisfied with the proposed architecture and design direction.
+   - Refine the design proposal based on user feedback.
+   - **DO NOT PROCEED to Phase 3 until the user explicitly states they are satisfied and the design direction is approved.**
 
 **YOU MAY NOT PROCEED TO PHASE 3 UNTIL USER APPROVES THE DESIGN.**
 
@@ -206,10 +203,11 @@ Every tool call takes time. You MUST:
 
 2. **Port to Next.js Stack (THINK FIRST):**
    Think carefully about component architecture, then:
-   - Use the approved content in `builder/html` strictly as a STARTER part.
+   - Use the design architecture and layouts approved in Phase 2 as your blueprint.
+   - Implement the design by leveraging the extensive pre-existing Next.js `.ts`/`.tsx` boilerplate (e.g., existing layouts, standard `src/components/ui/` components, pre-configured providers, and state management).
    - Port the design to Next.js, Tailwind CSS v4, shadcn, Radix, and GSAP.
-   - Use your skills and imagination to make the UI/UX EVEN BETTER than the starter designs.
-   - Actively apply `frontend-design`, `brand-guidelines`, and `cinematic-components` patterns during porting.
+   - Use your skills and imagination to make the UI/UX even better than the initial proposal.
+   - Actively apply `frontend-design`, `brand-guidelines`, and `cinematic-components` patterns during implementation.
 
 3. **Tailwind CSS v4 (THINK FIRST, STRICT RULES):**
    Think carefully to verify approach, then:
@@ -428,7 +426,7 @@ src/
 - `write_file` — Create components in `src/components/`
 - `edit` — Modify existing components
 - `question` — Get user feedback
-- **Stitch Web Interface** — Use for initial UI design and generation
+- **AI Imagination** — Use your internal reasoning and imagination to design and build beautiful UI/UX based on the project requirements.
 
 ### Research & Planning
 
@@ -487,7 +485,7 @@ src/
 ### new_project / overhaul (ALL 5 phases)
 
 1. **Phase 1: Lead Architect** → Complete all 8 steps
-2. **Phase 2: UI Designer** → Get user approval
+2. **Phase 2: AI UI Designer** → Get user approval
 3. **Phase 3: React Integrator** → Port to Next.js
 4. **Phase 4: UX/Motion Engineer** → Add animations
 5. **Phase 5: QA Inspector** → Validate and test

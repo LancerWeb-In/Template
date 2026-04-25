@@ -8,13 +8,13 @@
 
 ### Core Workflow Skills
 
-**MUST use before starting any implementation task:**
+#### MUST use before starting any implementation task
 
 - `activate_skill("ground-truth-memory")` — Records technical rationale in `MEMORY.md` before every decision. Maintains dual-layer memory: human-readable file + Knowledge Graph.
 
 ### Next.js & React Skills
 
-**MUST use for Next.js/React development:**
+#### MUST use for Next.js/React development
 
 - `activate_skill("nextjs-16")` — Expert Next.js 16 with Turbopack, App Router, Cache Components, proxy.ts, React 19. Covers breaking changes from v15, SOLID architecture, core concepts (Server Components, caching strategy, data fetching), and production best practices.
 - `activate_skill("nextjs-middleware")` — Middleware system (Edge + Node.js proxy.ts): matcher config, auth protection, RBAC, redirects/rewrites, i18n, security headers (CSP, CORS), geolocation routing, bot detection, rate limiting.
@@ -26,7 +26,7 @@
 
 ### Visual & Frontend Skills
 
-**MUST use for UI/UX and design work:**
+#### MUST use for UI/UX and design work
 
 - `activate_skill("cinematic-components")` — 30+ modular components for GSAP animations, scroll effects, cursor interactions, ambient backgrounds. Vanilla HTML/CSS/GSAP reference → Next.js/React/Tailwind translation.
 - `activate_skill("gsap-animation-best-practices")` — Web animation best practices: scroll triggers, performance budgets, reduced-motion support, ScrollTrigger efficiency, accessibility.
@@ -39,7 +39,7 @@
 
 ### Backend & Architecture Skills
 
-**MUST use for server-side development:**
+#### MUST use for server-side development
 
 - `activate_skill("backend-patterns")` — Backend architecture: RESTful API, repository/service/middleware patterns, query optimization, N+1 prevention, Redis caching, error handling, JWT auth, RBAC, rate limiting, background jobs, structured logging.
 - `activate_skill("python-patterns")` — Python-specific design patterns and best practices including protocols (structural subtyping), dataclasses as DTOs, context managers, generators, decorators, async/await, advanced type hints (TypeVar, Generic, ParamSpec), dependency injection, package organization, error handling, and functional programming.
@@ -47,14 +47,14 @@
 
 ### Database & ORM Skills
 
-**MUST use for database and ORM work:**
+#### MUST use for database and ORM work
 
 - `activate_skill("drizzle-orm-workflow-manager")` — Manages Drizzle ORM workflows including schema generation, pushing migrations, introspection, and reset flows. Covers drizzle-kit CLI commands, schema design patterns (relations, indexes, enums), migration strategies, and multi-driver support (PostgreSQL, SQLite, MySQL).
 - `activate_skill("supabase-postgres-best-practices")` — Postgres performance optimization and best practices from Supabase. Contains rules across 8 categories prioritized by impact: Query Performance (CRITICAL), Connection Management (CRITICAL), Security & RLS (CRITICAL), Schema Design (HIGH), Concurrency & Locking (MEDIUM-HIGH), Data Access Patterns (MEDIUM), Monitoring & Diagnostics (LOW-MEDIUM), Advanced Features (LOW).
 
 ### Validation, State & Auth Skills
 
-**MUST use for validation, state management, and authentication:**
+#### MUST use for validation, state management, and authentication
 
 - `activate_skill("zod-validation-schema-design")` — Specializes in Zod-based runtime validation, schema definition, and TypeScript type inference for APIs, forms, and domains. Covers schema composition, `.transform()`, `.discriminatedUnion()`, `.optional()` vs `.nullable()`, error handling, and Zod↔TypeScript inference patterns.
 - `activate_skill("zustand-middleware-specialist")` — Zustand middleware for persistence, dev tools, immutability (Immer), and enhanced store functionality. Covers `persist` middleware (localStorage, IndexedDB), `devtools` integration, `immer` for immutable updates, `subscribeWithSelector`, and store composition patterns.
@@ -62,13 +62,13 @@
 
 ### Data Fetching & Routing Skills
 
-**MUST use for data fetching and routing:**
+#### MUST use for data fetching and routing
 
 - `activate_skill("tanstack-router-query-integration")` — Integrates TanStack Router with TanStack Query for optimal data fetching, prefetching, and navigation performance. Covers route loaders, search params, prefetching strategies, stale-while-revalidate patterns, and SSR data hydration.
 
 ### Container & Infrastructure Skills
 
-**MUST use for containerization and orchestration:**
+#### MUST use for containerization and orchestration
 
 - `activate_skill("docker-patterns")` — Multi-stage builds, distroless images, Docker Compose, health checks, security best practices.
 - `activate_skill("docker-compose")` — Multi-container apps, service definition, networking, volumes, CLI commands, environment management.
@@ -76,7 +76,7 @@
 
 ### Testing & Quality Skills
 
-**MUST use for testing and code quality:**
+#### MUST use for testing and code quality
 
 - `activate_skill("tdd")` — Red-Green-Refactor: failing test → minimal code → refactor. No production code without failing test first.
 - `activate_skill("playwright-expert")` — Cross-browser testing (Chrome, Firefox, Safari), auto-waiting, visual regression, mobile emulation, Page Object Model, screenshots, MCP integration.
@@ -85,7 +85,7 @@
 
 ### Bun Runtime Skills
 
-**MUST use when working with Bun:**
+#### MUST use when working with Bun
 
 - `activate_skill("bun-runtime-toolkit")` — `bun` commands, `bunx`, shell scripts, `bun.lock`, `bun test`, Bun APIs (`Bun.file()`, `Bun.serve()`, `Bun.spawn()`), Node.js compatibility differences.
 - `activate_skill("bun-development-toolkit")` — Package management, bundling, testing, migration from Node.js to Bun.
@@ -94,23 +94,23 @@
 
 ### PWA Skills
 
-**MUST use for Progressive Web App features:**
+#### MUST use for Progressive Web App features
 
 - `activate_skill("next-js-pwa")` — Sets up PWA support using Serwist for Next.js. Covers offline support, precaching, runtime caching strategies, service worker configuration, and manifest generation.
 
 ### GitHub Skills
 
-**MUST use for repository management:**
+#### MUST use for repository management
 
 - `activate_skill("github")` — Interact with GitHub repositories, issues, pull requests, and code via the GitHub MCP server. Covers repository operations (create, fork, search), file operations (get contents, create/update, push), branch operations, issue operations, pull request operations, and search operations (repos, code, issues, users).
 
 ## MCP Tools Catalog
 
-**USE ONLY TOOLS LISTED BELOW. DO NOT USE UNLISTED TOOLS.**
+USE ONLY TOOLS LISTED BELOW. DO NOT USE UNLISTED TOOLS.
 
 ### GitHub — CLI Operations (gh)
 
-**USE `gh` CLI via `run_shell_command` for all GitHub operations. `gh` is installed system-wide.**
+USE `gh` CLI via `run_shell_command` for all GitHub operations. `gh` is installed system-wide.
 
 | Former MCP Tool                     | gh CLI Equivalent                                    |
 | ----------------------------------- | ---------------------------------------------------- |
@@ -529,12 +529,13 @@ This is your **PRIMARY REASONING DISCIPLINE** and **HIGHEST PRIORITY PRACTICE**.
 **PRIORITY ORDER — DO NOT DEVIATE:**
 
 0. **Every single action** must be preceded by **deliberate thinking** **(HIGHEST PRIORITY)**
-1. **Every task** must start with deliberate thinking
-2. **Every implementation** must use TDD (Red-Green-Refactor) — `activate_skill("tdd")`
-3. **Every code change** must be committed immediately after passing tests
-4. **Every debugging** must start with root cause investigation
-5. **Every completion** must be verified with fresh evidence before claiming done
-6. **NEVER run the dev server.** You are ONLY allowed to run build and lint.
+1. **Design Philosophy:** RETIRE the "Stitch Method". Agents MUST use their internal reasoning and imagination to autonomously design UI/UX based on `builder/ideate.md` specifications and existing boilerplate patterns.
+2. **Every task** must start with deliberate thinking
+3. **Every implementation** must use TDD (Red-Green-Refactor) — `activate_skill("tdd")`
+4. **Every code change** must be committed immediately after passing tests
+5. **Every debugging** must start with root cause investigation
+6. **Every completion** must be verified with fresh evidence before claiming done
+7. **NEVER run the dev server.** You are ONLY allowed to run build and lint.
 
 **Rule #0 means: Before you read a file, think. Before you write code, think. Before you run a command, think. After you get output, think. ALWAYS THINK FIRST. ALWAYS THINK CAREFULLY.**
 
