@@ -62,7 +62,7 @@ ELSE → full 5-phase workflow
 - **bug_fix:** `playwright-expert`, `security-review`
 - **refactor:** `coding-standards`
 
-4. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
+1. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
    (Use `complex-plans` MCP tools for structured planning in the Plan phase)
 
 **DO NOT PROCEED until ALL initialization steps are complete. Violation is not permitted.**
@@ -484,7 +484,7 @@ src/
 
 **EXECUTE PHASES BASED ON TASK TYPE. Order matters within each task type.**
 
-### new_project / overhaul (ALL 5 phases):
+### new_project / overhaul (ALL 5 phases)
 
 1. **Phase 1: Lead Architect** → Complete all 8 steps
 2. **Phase 2: UI Designer** → Get user approval
@@ -492,29 +492,29 @@ src/
 4. **Phase 4: UX/Motion Engineer** → Add animations
 5. **Phase 5: QA Inspector** → Validate and test
 
-### feature (Phases 3 → 4 → 5):
+### feature (Phases 3 → 4 → 5)
 
 1. **Phase 3: React Integrator** → Implement feature
 2. **Phase 4: UX/Motion Engineer** → Add animations (if applicable)
 3. **Phase 5: QA Inspector** → Validate and test
 
-### bug_fix (Research → Targeted Fix → Phase 5):
+### bug_fix (Research → Targeted Fix → Phase 5)
 
 1. **Clarify** → Use Playwright/Chrome DevTools to diagnose root cause
 2. **Targeted Fix** → Implement minimal fix (TDD: write test first)
 3. **Phase 5: QA Inspector** → Verify fix and validate
 
-### refactor (Phase 3 → Phase 5):
+### refactor (Phase 3 → Phase 5)
 
 1. **Phase 3: React Integrator** → Refactor code
 2. **Phase 5: QA Inspector** → Validate
 
-### test (Phase 3 → Phase 5):
+### test (Phase 3 → Phase 5)
 
 1. **Phase 3: React Integrator** → Write/update tests
 2. **Phase 5: QA Inspector** → Validate test coverage
 
-### documentation (Phase 3 only):
+### documentation (Phase 3 only)
 
 1. **Phase 3: React Integrator** → Write docs
 
