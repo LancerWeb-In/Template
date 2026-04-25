@@ -4,28 +4,65 @@
 
 **You MUST read context.md BEFORE this document. Both documents are binding.**
 
+## Task Type Detection — AUTO-BYPASS (CRITICAL)
+
+**BEFORE reading any context files, detect the task type and adjust workflow accordingly:**
+
+| Task Type         | Indicators                                                           | Workflow     | Phases to Execute        |
+| ----------------- | -------------------------------------------------------------------- | ------------ | ------------------------ |
+| **new_project**   | `builder/reason.txt` doesn't exist, empty, or says "new project"     | Full 5-phase | ALL 5 phases             |
+| **overhaul**      | "overhaul", "rebuild", "redesign", "complete rewrite" in request     | Full 5-phase | ALL 5 phases             |
+| **feature**       | "add", "implement", "create", "build" + feature name (not UI design) | Abbreviated  | Skip Phases 1-2, run 3-5 |
+| **bug_fix**       | "fix", "bug", "error", "issue", "crash", "broken" in request         | Minimal      | Clarify → Fix → Phase 5  |
+| **refactor**      | "refactor", "clean up", "restructure", "improve" in request          | Minimal      | Implement + Test only    |
+| **test**          | "test", "write tests", "add tests", "coverage" in request            | Minimal      | Phase 3 + Phase 5        |
+| **documentation** | "document", "readme", "comment", "docs" in request                   | Minimal      | Phase 3 only             |
+
+**AUTO-DETECTION LOGIC:**
+
+```
+
+```
+
+IF task contains: "fix", "bug fix", "error", "crash", "broken" → bug_fix workflow
+ELSE IF task contains: "add", "implement", "create feature", "new page", "new component" → feature workflow
+ELSE IF task contains: "test", "write tests", "add tests", "coverage" → test workflow
+ELSE IF task contains: "refactor", "clean up", "restructure" → refactor workflow
+ELSE IF task contains: "document", "readme", "comment", "docs" → documentation workflow
+ELSE IF builder/reason.txt missing/empty → new_project workflow
+ELSE IF task contains: "overhaul", "rebuild", "redesign", "rewrite" → overhaul workflow
+ELSE → full 5-phase workflow
+
+````
+
+**SKIP RULE:** When a phase is skipped, acknowledge it briefly and proceed. Do NOT run skipped phases.
+
 ## Quick Start
 
 **BEFORE ANY OTHER ACTION IN A NEW SESSION, YOU MUST:**
 
-1. **Read Project Context Files (IN THIS ORDER):**
+1. **Detect Task Type** (see above table)
+2. **Read Project Context Files** (only if `new_project` or `overhaul`):
    - `builder/reason.txt` — Project purpose, goals, rationale
    - `builder/stitch.txt` — UI/UX design and stitch instructions
    - `src/app/layout.tsx` — Existing Next.js root layout
    - `public/manifest.json` — Site metadata and PWA config
-
-2. **Activate Essential Skills (EXACTLY AS SHOWN):**
+3. **Activate Essential Skills** (based on task type):
 
    ```python
    activate_skill("ground-truth-memory")
-   activate_skill("frontend-design")
-   activate_skill("brand-guidelines")
-   activate_skill("cinematic-components")
-   activate_skill("gsap-animation-best-practices")
-   activate_skill("nextjs-16")
-   ```
+   activate_skill("tdd")
+   activate_skill("coding-standards")
+````
 
-3. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
+**Additional skills by task type:**
+
+- **new_project/overhaul:** `frontend-design`, `brand-guidelines`, `cinematic-components`, `gsap-animation-best-practices`, `nextjs-16`
+- **feature:** `nextjs-16`, relevant domain skill (e.g., `api-routes`, `server-components`)
+- **bug_fix:** `playwright-expert`, `security-review`
+- **refactor:** `coding-standards`
+
+4. **Run Workflow:** Clarify → Research → Plan → Implement → Test → Persist
    (Use `complex-plans` MCP tools for structured planning in the Plan phase)
 
 **DO NOT PROCEED until ALL initialization steps are complete. Violation is not permitted.**
@@ -44,7 +81,9 @@ Every tool call takes time. You MUST:
 
 ## SECTION 1: Phase 1 — Lead Architect (Planning)
 
-**MANDATORY PHASE. YOU MUST COMPLETE ALL ACTIONS.**
+**⚡ SKIP THIS PHASE IF task-type is: feature, bug_fix, refactor, documentation**
+
+**MANDATORY PHASE FOR: new_project, overhaul**
 
 **Mindset:** Strategic, brand-focused, structural
 
@@ -109,13 +148,15 @@ Every tool call takes time. You MUST:
    ```
 
 9. **Prepare UI Generation Prompts:**
-    Draft prompts based on the design specification for the Stitch web interface.
+   Draft prompts based on the design specification for the Stitch web interface.
 
 **YOU MAY NOT PROCEED TO PHASE 2 UNTIL PHASE 1 IS COMPLETE.**
 
 ## SECTION 2: Phase 2 — UI Designer (Stitch Generation)
 
-**MANDATORY PHASE. YOU MUST COMPLETE ALL ACTIONS.**
+**⚡ SKIP THIS PHASE IF task-type is: feature, bug_fix, refactor, documentation**
+
+**MANDATORY PHASE FOR: new_project, overhaul**
 
 **Mindset:** Creative, visual, interactive
 
@@ -145,7 +186,9 @@ Every tool call takes time. You MUST:
 
 ## SECTION 3: Phase 3 — React Integrator (Translation)
 
-**MANDATORY PHASE. YOU MUST COMPLETE ALL ACTIONS.**
+**⚡ SKIP THIS PHASE IF task-type is: documentation**
+
+**MANDATORY PHASE FOR: new_project, overhaul, feature, refactor**
 
 **Mindset:** Component-driven, clean coder, semantic, responsive
 
@@ -214,7 +257,9 @@ Every tool call takes time. You MUST:
 
 ## SECTION 4: Phase 4 — UX/Motion Engineer (Enhancement)
 
-**MANDATORY PHASE. YOU MUST COMPLETE ALL ACTIONS.**
+**⚡ SKIP THIS PHASE IF task-type is: bug_fix, refactor, documentation**
+
+**MANDATORY PHASE FOR: new_project, overhaul, feature**
 
 **Mindset:** Interactive, premium, bold, immersive
 
@@ -262,7 +307,9 @@ Every tool call takes time. You MUST:
 
 ## SECTION 5: Phase 5 — QA Inspector (Validation)
 
-**MANDATORY PHASE. YOU MUST COMPLETE ALL ACTIONS.**
+**⚡ ALWAYS REQUIRED FOR: new_project, overhaul, feature, bug_fix, refactor, test**
+
+**⚡ OPTIONAL FOR: documentation** (skip if only writing docs)
 
 **Mindset:** Critical, user-centric, uncompromising
 
@@ -433,9 +480,11 @@ src/
 1. **NO DEV SERVER ALLOWED:** You are STRICTLY FORBIDDEN from running the development server (e.g., `npm run dev`, `yarn dev`, `bun run dev`).
 2. **VERIFICATION ONLY:** To ensure the codebase is 100% issue-free, you are ONLY allowed to run the `build` and `lint` commands.
 
-## Phase Execution Order (STRICTLY ENFORCED)
+## Phase Execution Order (CONDITIONAL)
 
-**YOU MUST EXECUTE PHASES IN ORDER. SKIPPING IS NOT PERMITTED.**
+**EXECUTE PHASES BASED ON TASK TYPE. Order matters within each task type.**
+
+### new_project / overhaul (ALL 5 phases):
 
 1. **Phase 1: Lead Architect** → Complete all 8 steps
 2. **Phase 2: UI Designer** → Get user approval
@@ -443,18 +492,45 @@ src/
 4. **Phase 4: UX/Motion Engineer** → Add animations
 5. **Phase 5: QA Inspector** → Validate and test
 
-**No phase may be skipped. No phase may be partially completed.**
+### feature (Phases 3 → 4 → 5):
+
+1. **Phase 3: React Integrator** → Implement feature
+2. **Phase 4: UX/Motion Engineer** → Add animations (if applicable)
+3. **Phase 5: QA Inspector** → Validate and test
+
+### bug_fix (Research → Targeted Fix → Phase 5):
+
+1. **Clarify** → Use Playwright/Chrome DevTools to diagnose root cause
+2. **Targeted Fix** → Implement minimal fix (TDD: write test first)
+3. **Phase 5: QA Inspector** → Verify fix and validate
+
+### refactor (Phase 3 → Phase 5):
+
+1. **Phase 3: React Integrator** → Refactor code
+2. **Phase 5: QA Inspector** → Validate
+
+### test (Phase 3 → Phase 5):
+
+1. **Phase 3: React Integrator** → Write/update tests
+2. **Phase 5: QA Inspector** → Validate test coverage
+
+### documentation (Phase 3 only):
+
+1. **Phase 3: React Integrator** → Write docs
+
+**Within each task type, phases must be executed in order. Skipping phases outside your task type is REQUIRED, not optional.**
 
 ## Confirmation
 
 **BEFORE PROCEEDING, YOU MUST CONFIRM:**
 
-1. [ ] Read project context files (builder/reason.txt, src/app/layout.tsx, public/manifest.json)
-2. [ ] Activated essential skills (ground-truth-memory, frontend-design, brand-guidelines, cinematic-components, gsap-animation-best-practices, nextjs-16)
-3. [ ] Understood multi-phase workflow
-4. [ ] Will follow strict phase order
-5. [ ] Will use mandatory skills for each task
-6. [ ] Will commit after each logical unit
-7. [ ] **WILL THINK CAREFULLY BEFORE EVERY ACTION AND AFTER EVERY ACTION WITHOUT EXCEPTION**
+1. [ ] Detected task type and identified which phases to execute
+2. [ ] Activated skills for detected task type (see Quick Start section above)
+3. [ ] Read context files only if required by task type
+4. [ ] Understood conditional phase workflow
+5. [ ] Will execute phases in order for your task type
+6. [ ] Will use mandatory skills for each task
+7. [ ] Will commit after each logical unit
+8. [ ] **WILL THINK CAREFULLY BEFORE EVERY ACTION AND AFTER EVERY ACTION WITHOUT EXCEPTION**
 
 **Reply with "CONFIRMED" to proceed. Any other response is not permitted.**

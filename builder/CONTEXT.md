@@ -10,40 +10,40 @@
 
 **MUST use before starting any implementation task:**
 
-- `activate_skill("ground-truth-memory")` — Mandates recording a high-signal technical rationale in `MEMORY.md` before every major or minor decision/task. Enforces the "Senior Developer Ground Truth" protocol to ensure no decision is forgotten or undocumented. Maintains a dual-layer memory: human-readable `MEMORY.md` file and agent-driven Knowledge Graph.
+- `activate_skill("ground-truth-memory")` — Records technical rationale in `MEMORY.md` before every decision. Maintains dual-layer memory: human-readable file + Knowledge Graph.
 
 ### Next.js & React Skills
 
 **MUST use for Next.js/React development:**
 
 - `activate_skill("nextjs-16")` — Expert Next.js 16 with Turbopack, App Router, Cache Components, proxy.ts, React 19. Covers breaking changes from v15, SOLID architecture, core concepts (Server Components, caching strategy, data fetching), and production best practices.
-- `activate_skill("nextjs-middleware")` — Complete Next.js Middleware system (Edge runtime and Node.js proxy.ts for Next.js 16). Covers matcher configuration, authentication protection, role-based access control, redirects, rewrites, internationalization, security headers (CSP, CORS), geolocation routing, bot detection, and rate limiting patterns.
-- `activate_skill("nextjs-performance")` — Next.js performance optimizations including next/image, next/font, dynamic imports, caching strategies, and bundle optimization. Covers Core Web Vitals (LCP, FID, CLS) and common performance issues with fixes.
+- `activate_skill("nextjs-middleware")` — Middleware system (Edge + Node.js proxy.ts): matcher config, auth protection, RBAC, redirects/rewrites, i18n, security headers (CSP, CORS), geolocation routing, bot detection, rate limiting.
+- `activate_skill("nextjs-performance")` — Optimizations: next/image, next/font, dynamic imports, caching, bundle optimization, Core Web Vitals (LCP, FID, CLS).
 - `activate_skill("api-routes")` — Next.js API Routes - Route handlers, middleware, edge runtime. Covers app/api/route.ts files, HTTP methods (GET, POST, PUT, DELETE, PATCH), Web API standard Request/Response, and dynamic route patterns.
 - `activate_skill("server-components")` — React Server Components in Next.js. Covers server vs client components, the 'use client' directive, composition patterns (Server Data → Client Interactivity, children as Server Components, slots), async data fetching, parallel fetching, streaming with Suspense, and the decision guide for when to use each.
 - `activate_skill("cache-components")` — Next.js Cache Components and Partial Prerendering (PPR). Covers the 'use cache' directive, cacheLife() for duration control, cacheTag() for tagging, updateTag()/revalidateTag() for invalidation, static shells with dynamic streaming, build-time feedback, and proactive application when cacheComponents is enabled.
-- `activate_skill("react-best-practices")` — React and Next.js performance optimization guidelines from Vercel Engineering. Contains 70 rules across 8 categories prioritized by impact: Eliminating Waterfalls (CRITICAL), Bundle Size Optimization (CRITICAL), Server-Side Performance (HIGH), Client-Side Data Fetching (MEDIUM-HIGH), Re-render Optimization (MEDIUM), Rendering Performance (MEDIUM), JavaScript Performance (LOW-MEDIUM), Advanced Patterns (LOW).
+- `activate_skill("react-best-practices")` — 70 optimization rules across 8 categories: Waterfalls (CRITICAL), Bundle Size (CRITICAL), Server Perf (HIGH), Client Data Fetching (MEDIUM-HIGH), Re-render (MEDIUM), Rendering (MEDIUM), JS Perf (LOW-MEDIUM), Advanced (LOW).
 
 ### Visual & Frontend Skills
 
 **MUST use for UI/UX and design work:**
 
-- `activate_skill("cinematic-components")` — Provides 30+ modular cinematic website components for GSAP animations, scroll effects, cursor interactions, and ambient backgrounds. Components use vanilla HTML/CSS/GSAP/ScrollTrigger as reference implementations to translate into Next.js/React with Tailwind CSS. Categories: Scroll-Driven Effects, Cursor & Hover Interactions, Click & Tap Actions, Ambient & Auto Backgrounds.
-- `activate_skill("gsap-animation-best-practices")` — GSAP animation best practices for web design — scroll triggers, performance optimization, accessibility, responsive animations, and testing integration. Covers animation performance budgets, reduced-motion support, ScrollTrigger efficiency, and animation testing patterns.
-- `activate_skill("gsap-animation-expert")` — Expert GSAP (GreenSock Animation Platform) for complex timelines, ScrollTrigger, SVG/canvas animations, and granular timing control. Covers timeline composition, BlendMode, FlipPlugin, MotionPathPlugin, DrawSVG, MorphSVG, and advanced easing functions.
+- `activate_skill("cinematic-components")` — 30+ modular components for GSAP animations, scroll effects, cursor interactions, ambient backgrounds. Vanilla HTML/CSS/GSAP reference → Next.js/React/Tailwind translation.
+- `activate_skill("gsap-animation-best-practices")` — Web animation best practices: scroll triggers, performance budgets, reduced-motion support, ScrollTrigger efficiency, accessibility.
+- `activate_skill("gsap-animation-expert")` — Expert GSAP: complex timelines, ScrollTrigger, SVG/canvas animations, timeline composition, BlendMode, FlipPlugin, MotionPathPlugin, advanced easing.
 - `activate_skill("brand-guidelines")` — Applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging. Covers visual standards (color palette, typography, logo usage), document standards (presentations, spreadsheets, PDFs), content guidelines, and quality standards.
 - `activate_skill("frontend-testing")` — Comprehensive frontend testing patterns for React/Next.js including component tests (Jest/Vitest + React Testing Library), visual regression (Playwright), accessibility (axe-core), and performance (Lighthouse) testing. Covers test infrastructure setup, coverage analysis, and CI/CD integration.
 - `activate_skill("tailwind-v4")` — Tailwind CSS v4 patterns and new features including CSS-first configuration, @theme directive, container queries, and modern utilities. Covers @theme namespaces, custom colors/typography/spacing/animations/shadows, container queries, new utilities (text-balance, logical properties, subgrid), dark mode, custom @utility definitions, and migration from v3.
-- `activate_skill("tailwind-v4-shadcn")` — Production-tested setup for Tailwind CSS v4 with shadcn/ui, Vite, and React. Covers the four-step architecture (CSS variables → @theme inline → base styles → automatic dark mode), dark mode with ThemeProvider, common issues and fixes, file templates, and Tailwind v4 plugins (@plugin directive).
-- `activate_skill("tailwindcss-v4")` — Tailwind CSS v4.1 core features, @theme directive, functions and directives (@utility, @variant, @custom-variant), migration guide from v3 to v4, renamed/removed utilities, and installation instructions.
+- `activate_skill("tailwind-v4-shadcn")` — v4 + shadcn/ui + Vite setup: CSS variables → @theme inline → base styles → auto dark mode, ThemeProvider, file templates, @plugin directive.
+- `activate_skill("tailwindcss-v4")` — v4.1 core: @theme directive, @utility/@variant/@custom-variant, migration from v3, renamed/removed utilities, installation.
 
 ### Backend & Architecture Skills
 
 **MUST use for server-side development:**
 
-- `activate_skill("backend-patterns")` — Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes. Covers RESTful API structure, repository pattern, service layer pattern, middleware pattern, query optimization, N+1 prevention, Redis caching, centralized error handling, JWT authentication, role-based access control, rate limiting, background jobs, and structured logging.
+- `activate_skill("backend-patterns")` — Backend architecture: RESTful API, repository/service/middleware patterns, query optimization, N+1 prevention, Redis caching, error handling, JWT auth, RBAC, rate limiting, background jobs, structured logging.
 - `activate_skill("python-patterns")` — Python-specific design patterns and best practices including protocols (structural subtyping), dataclasses as DTOs, context managers, generators, decorators, async/await, advanced type hints (TypeVar, Generic, ParamSpec), dependency injection, package organization, error handling, and functional programming.
-- `activate_skill("security-review")` — Provides a robust framework for identifying vulnerabilities and enforcing security best practices across the entire development lifecycle. Covers secrets management, input validation with Zod, SQL injection prevention, authentication & authorization (JWT, RLS), XSS prevention, CSRF protection, rate limiting, sensitive data exposure, and dependency security.
+- `activate_skill("security-review")` — Vulnerability identification and security best practices: secrets management, input validation (Zod), SQL injection prevention, auth (JWT, RLS), XSS/CSRF protection, rate limiting, dependency security.
 
 ### Database & ORM Skills
 
@@ -70,27 +70,27 @@
 
 **MUST use for containerization and orchestration:**
 
-- `activate_skill("docker-patterns")` — Docker containerization best practices. Covers multi-stage builds, distroless images, Docker Compose, .dockerignore, health checks, and security best practices.
-- `activate_skill("docker-compose")` — Comprehensive guidance for Docker Compose including multi-container applications, service definition, networking, and volumes. Covers docker-compose.yml configuration, CLI commands, environment management, health checks, and production best practices.
-- `activate_skill("container-expert")` — Container orchestration expert including Docker, Kubernetes, Helm, and service mesh. Consolidates Docker configuration, Istio service mesh, and Knative service guidance. Enforces Iron Laws: never run as root, never store secrets in images, always set resource limits, always add health probes, never use deprecated docker-compose (v1).
+- `activate_skill("docker-patterns")` — Multi-stage builds, distroless images, Docker Compose, health checks, security best practices.
+- `activate_skill("docker-compose")` — Multi-container apps, service definition, networking, volumes, CLI commands, environment management.
+- `activate_skill("container-expert")` — Docker, Kubernetes, Helm, service mesh. Iron Laws: never run as root, never store secrets in images, always set resource limits, always add health probes, never use deprecated docker-compose v1.
 
 ### Testing & Quality Skills
 
 **MUST use for testing and code quality:**
 
-- `activate_skill("tdd")` — Systematic TDD methodology for writing tests first. Enforces the Red-Green-Refactor cycle: write a failing test, make it pass with minimal code, then refactor. Establishes the Iron Law: no production code without a failing test first. Includes anti-rationalization table, red flags to watch for, and stuck-pattern solutions.
-- `activate_skill("playwright-expert")` — Playwright testing - cross-browser (Chrome, Firefox, Safari), auto-waiting, visual regression, mobile emulation, API testing. Covers Page Object Model, visual regression with screenshots, mobile testing with device emulation, and MCP integration.
-- `activate_skill("playwright-patterns")` — Playwright automation patterns for writing robust, maintainable browser automation and E2E tests. Covers selector strategy priority (role-based → test IDs → CSS), waiting patterns (auto-waiting, web-first assertions), data extraction patterns, error handling, navigation, form interactions, and anti-patterns to avoid.
-- `activate_skill("coding-standards")` — Guide for writing clean, maintainable code following industry best practices and design principles. Covers DRY, SOLID, Composition Over Inheritance, YAGNI, KISS, code organization, naming conventions, function design, error handling, comments and documentation, and self-review checklists. Language-agnostic with specific guidance for Python, TypeScript, Java, Go, Rust.
+- `activate_skill("tdd")` — Red-Green-Refactor: failing test → minimal code → refactor. No production code without failing test first.
+- `activate_skill("playwright-expert")` — Cross-browser testing (Chrome, Firefox, Safari), auto-waiting, visual regression, mobile emulation, Page Object Model, screenshots, MCP integration.
+- `activate_skill("playwright-patterns")` — Selector priority (role → test IDs → CSS), auto-waiting, web-first assertions, data extraction, error handling, form interactions.
+- `activate_skill("coding-standards")` — Clean code: DRY, SOLID, Composition Over Inheritance, YAGNI, KISS, naming conventions, function design, error handling, self-review checklists.
 
 ### Bun Runtime Skills
 
-**MUST use when working with Bun (the project runtime):**
+**MUST use when working with Bun:**
 
-- `activate_skill("bun-runtime-toolkit")` — Bun runtime patterns and best practices. Covers `bun` commands, `bunx`, shell scripts, `bun.lock` management, `bun test`, Bun APIs (`Bun.file()`, `Bun.serve()`, `Bun.spawn()`), and Node.js compatibility differences.
-- `activate_skill("bun-development-toolkit")` — Modern JavaScript/TypeScript development with Bun runtime. Covers package management, bundling, testing, and migration from Node.js to Bun.
-- `activate_skill("bun-bundler")` — Bundling JavaScript/TypeScript code with Bun's fast bundler. Covers targets, tree-shaking, code splitting, minification, and optimization strategies.
-- `activate_skill("bun-testing-suite")` — Writing tests with Bun's built-in test runner. Covers test organization, assertions, mocking, snapshot testing, and coverage.
+- `activate_skill("bun-runtime-toolkit")` — `bun` commands, `bunx`, shell scripts, `bun.lock`, `bun test`, Bun APIs (`Bun.file()`, `Bun.serve()`, `Bun.spawn()`), Node.js compatibility differences.
+- `activate_skill("bun-development-toolkit")` — Package management, bundling, testing, migration from Node.js to Bun.
+- `activate_skill("bun-bundler")` — Targets, tree-shaking, code splitting, minification, optimization.
+- `activate_skill("bun-testing-suite")` — Test organization, assertions, mocking, snapshot testing, coverage.
 
 ### PWA Skills
 

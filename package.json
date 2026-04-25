@@ -93,7 +93,7 @@
 		"eslint": "9.21.0",
 		"eslint-config-next": "16.2.4",
 		"eslint-plugin-tailwindcss": "4.0.0-alpha.2",
-		"prettier-plugin-tailwindcss": "0.0.0-insiders.f7d2598",
+		"prettier-plugin-tailwindcss": "0.7.3",
 		"tailwindcss": "4.2.4",
 		"typescript": "6.0.3",
 		"webpack": "5.106.2"
