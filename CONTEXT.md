@@ -58,7 +58,7 @@ When switching between tasks of different types:
 
 | Category       | Task                  | Skills to Activate                                                                   | MCP Tools                       |
 | -------------- | --------------------- | ------------------------------------------------------------------------------------ | ------------------------------- |
-| **Core**       | Any implementation    | `ground-truth-memory`                                                                | `complex-plans`                 |
+| **Core**       | Any implementation    | `ground-truth-memory`                                                                | `sequential-thinking`           |
 | **Core**       | Any code task         | `tdd`, `coding-standards`                                                            | —                               |
 | **Next.js**    | React 19 + Next.js 16 | `nextjs-16`, `react-best-practices`                                                  | `context7`, `deepwiki`          |
 | **Next.js**    | Middleware/Proxy      | `nextjs-middleware`                                                                  | —                               |
@@ -775,16 +775,13 @@ USE ONLY TOOLS LISTED BELOW. DO NOT USE UNLISTED TOOLS.
 | ------------------------- | --------------------------------------------- |
 | `next-devtools` (via MCP) | Next.js runtime diagnostics, caching analysis |
 
-### Memory — Knowledge Graph Persistence
+### Memory — File-Based Persistence
 
-| Tool                      | Description                        |
-| ------------------------- | ---------------------------------- |
-| `memory_create_entities`  | Create entities in knowledge graph |
-| `memory_create_relations` | Create relations between entities  |
-| `memory_add_observations` | Add observations to entities       |
-| `memory_delete_entities`  | Remove entities                    |
-| `memory_read_graph`       | Read the entire knowledge graph    |
-| `memory_search_nodes`     | Search for specific nodes          |
+For persistent memory, use `MEMORY.md` at the project root:
+
+- Document all technical decisions with rationale
+- Include dates and status (Active/Completed/Deferred)
+- Cross-reference related decisions
 
 ### Web Fetching
 
@@ -883,7 +880,7 @@ All version-gated content must have clear markers:
 
 ### Core Workflow Skills
 
-**ground-truth-memory** — Records technical rationale in `MEMORY.md` before every decision. Maintains dual-layer memory: human-readable file + Knowledge Graph via `memory` tool.
+**ground-truth-memory** — Records technical rationale in `MEMORY.md` before every decision. Maintains single source of truth: human-readable MEMORY.md file at project root.
 
 **tdd** — Red-Green-Refactor methodology:
 
