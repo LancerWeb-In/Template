@@ -254,12 +254,12 @@ Does it need to persist across sessions?
 ```typescript
 // Constrain to object types
 function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-  // implementation
+	// implementation
 }
 
 // Constrain to primitives
 function identity<T extends string | number>(value: T): T {
-  return value;
+	return value;
 }
 ```
 
@@ -323,23 +323,23 @@ def database_transaction(db):
 ```typescript
 // BEFORE: Long function with multiple responsibilities
 function processOrder(order) {
-  // validation
-  if (!order.items || order.items.length === 0) throw new Error('Empty order');
-  // pricing
-  const subtotal = order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const tax = subtotal * 0.08;
-  // shipping
-  const shipping = subtotal > 100 ? 0 : 10;
-  // confirmation
-  return { orderId: order.id, total: subtotal + tax + shipping };
+	// validation
+	if (!order.items || order.items.length === 0) throw new Error("Empty order");
+	// pricing
+	const subtotal = order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+	const tax = subtotal * 0.08;
+	// shipping
+	const shipping = subtotal > 100 ? 0 : 10;
+	// confirmation
+	return { orderId: order.id, total: subtotal + tax + shipping };
 }
 
 // AFTER: Composed from small, focused functions
 function processOrder(order) {
-  validateOrder(order);
-  const pricing = calculatePricing(order.items);
-  const shipping = determineShipping(order.items);
-  return createOrderConfirmation(order.id, pricing, shipping);
+	validateOrder(order);
+	const pricing = calculatePricing(order.items);
+	const shipping = determineShipping(order.items);
+	return createOrderConfirmation(order.id, pricing, shipping);
 }
 ```
 
@@ -348,20 +348,22 @@ function processOrder(order) {
 ```typescript
 // BEFORE: Type-checking chains
 function area(shape: Shape) {
-  if (shape.type === 'circle') {
-    return Math.PI * shape.radius ** 2;
-  } else if (shape.type === 'rectangle') {
-    return shape.width * shape.height;
-  }
-  // ... more types
+	if (shape.type === "circle") {
+		return Math.PI * shape.radius ** 2;
+	} else if (shape.type === "rectangle") {
+		return shape.width * shape.height;
+	}
+	// ... more types
 }
 
 // AFTER: Method on each class
 interface Shape {
-  area(): number;
+	area(): number;
 }
 class Circle implements Shape {
-  area() { return Math.PI * this.radius ** 2; }
+	area() {
+		return Math.PI * this.radius ** 2;
+	}
 }
 ```
 
@@ -384,7 +386,7 @@ class Circle implements Shape {
 
 **The Testing Pyramid:**
 
-```txt
+````txt
         /   E2E   \          <-- (Few, expensive)
        /-----------\
       /             \
@@ -428,7 +430,7 @@ describe('calculateTotalPrice', () => {
     expect(total).toBe(135); // 150 - 10% discount
   });
 });
-```
+````
 
 **Test Behavior, Not Implementation:**
 
@@ -461,15 +463,15 @@ it('redirects unauthenticated users to login', () => {
 **User Flow Testing:**
 
 ```typescript
-test('user can complete purchase flow', async ({ page }) => {
-  await page.goto('/products');
-  await page.click('[data-testid^=product-card]');
-  await page.click('button:has-text(\"Add to Cart\")');
-  await page.click('a:has-text(\"Checkout\")');
-  await page.fill('[name=email]', 'user@example.com');
-  await page.fill('[name=cardNumber]', '4242424242424242');
-  await page.click('button:has-text(\"Pay Now\")');
-  await expect(page.locator('text=Order Confirmed')).toBeVisible();
+test("user can complete purchase flow", async ({ page }) => {
+	await page.goto("/products");
+	await page.click("[data-testid^=product-card]");
+	await page.click('button:has-text(\"Add to Cart\")');
+	await page.click('a:has-text(\"Checkout\")');
+	await page.fill("[name=email]", "user@example.com");
+	await page.fill("[name=cardNumber]", "4242424242424242");
+	await page.click('button:has-text(\"Pay Now\")');
+	await expect(page.locator("text=Order Confirmed")).toBeVisible();
 });
 ```
 
@@ -519,8 +521,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
       - run: npm ci
       - run: npm run lint
       - run: npm run build
@@ -989,7 +991,7 @@ def timing(func):
 **Mocking:**
 
 ```typescript
-const mockFetch = vi.fn().mockResolvedValue({ data: 'test' });
+const mockFetch = vi.fn().mockResolvedValue({ data: "test" });
 vi.useFakeTimers();
 vi.advanceTimersByTime(1000);
 ```
