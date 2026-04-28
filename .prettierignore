@@ -1,3 +1,4 @@
+*.md
 *.mp4
 *.mkv
 *.mov
@@ -18,9 +19,8 @@
 .git*
 *.bmp
 *.ps1
+*.txt
 *.env
 *.lock
-*.lockb
 LICENSE
 .prettierignore
-requirements.txt
