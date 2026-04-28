@@ -10,5 +10,5 @@ This file serves as the absolute "Ground Truth" for both humans and agents. Ever
 
 - **Decision:** Establish Ground Truth Memory system.
 - **Rationale:** Ensure consistent technical alignment between human and agent, preventing context loss and documenting architectural "whys" that are often lost in code.
-- **Implementation:** Markdown-based `MEMORY.md` for human readability + `@modelcontextprotocol/server-memory` Knowledge Graph for agent persistence.
+- **Implementation:** Markdown-based `MEMORY.md` for human readability + agent persistence.
 - **Status:** Completed
