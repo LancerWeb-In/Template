@@ -1,0 +1,3 @@
+[submodule "sources/pendings/template"]
+	path = sources/pendings/template
+	url = https://github.com/LancerWeb-In/Template.git
