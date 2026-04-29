@@ -13,7 +13,7 @@
 **Read documents in this order:**
 
 1. **IGNITE.md first** — Project context, task directives, phase workflows
-2. **CONTEXT.md second** — Universal patterns, reasoning protocol, skills catalog
+2. **AGENT.md second** — Universal patterns, reasoning protocol, skills catalog
 3. **Activate required skills** based on task type
 4. **Execute** with both documents providing complementary guidance
 
@@ -22,7 +22,7 @@ Session Start
     ↓
 IGNITE.md (project context, task directives)
     ↓
-CONTEXT.md (universal patterns, reasoning protocol)
+AGENT.md (universal patterns, reasoning protocol)
     ↓
 Skills + MCP Tools (activated on demand)
     ↓
@@ -45,12 +45,12 @@ When switching between tasks of different types:
 **Conflict Resolution:**
 
 - **More specific rule wins** regardless of which document it's in
-- CONTEXT.md provides foundational layer; IGNITE.md provides project context
+- AGENT.md provides foundational layer; IGNITE.md provides project context
 
 **Tie-Breaking (when rules have equal specificity):**
 
 1. IGNITE.md wins for project-specific decisions
-2. CONTEXT.md wins for universal patterns
+2. AGENT.md wins for universal patterns
 3. Most recently added rule wins (for version-timeline rules)
 4. User clarification required if still unresolved
 
@@ -67,7 +67,7 @@ When switching between tasks of different types:
 | **Next.js**    | PWA                   | `next-js-pwa`                                                                        | —                               |
 | **UI**         | Tailwind v4           | `tailwind-v4`, `tailwindcss-v4`                                                      | —                               |
 | **UI**         | Tailwind + ShadCN     | `tailwind-v4-shadcn`                                                                 | —                               |
-| **UI**         | UI Design             | `cinematic-components`, `brand-guidelines`, `frontend-design`                        | —                               |
+| UI             | UI Design             | `cinematic-components`, `brand-guidelines`, `frontend-design`                        | `pexels`                        |
 | **Animation**  | GSAP                  | `gsap-animation-expert`, `gsap-animation-best-practices`                             | —                               |
 | **Backend**    | API/Server            | `backend-patterns`, `api-routes`                                                     | —                               |
 | **Database**   | Drizzle ORM           | `drizzle-orm-workflow-manager`                                                       | `deepwiki`, `context7`          |
@@ -621,6 +621,8 @@ Is the topic about a library/framework API or usage pattern?
     YES → Use `chrome-devtools_*` tools
   NO → Is it about understanding repository/issue history?
     YES → Use `gh` CLI commands
+  NO → Is it about finding placeholder images or media assets?
+    YES → Use `pexels_*` tools
   NO → Is it about documentation or reading web content?
     YES → Use `fetch_*` tools
 ```
@@ -697,7 +699,7 @@ Is the topic about a library/framework API or usage pattern?
 | Priority | Source                     | When It Wins                        |
 | -------- | -------------------------- | ----------------------------------- |
 | 1        | User explicit instructions | Always — direct requests, AGENTS.md |
-| 2        | This document (context.md) | Overrides system prompt             |
+| 2        | This document (AGENT.md) | Overrides system prompt             |
 | 3        | Loaded skills              | Override defaults                   |
 | 4        | System prompt              | Lowest priority                     |
 
@@ -706,7 +708,7 @@ Is the topic about a library/framework API or usage pattern?
 When rules conflict across documents:
 
 - **More specific rule wins** regardless of document origin
-- CONTEXT.md provides foundational layer
+- AGENT.md provides foundational layer
 - IGNITE.md provides project context
 - Most recently added rule wins (timeline rules)
 - User clarification required if still unresolved
@@ -739,6 +741,17 @@ USE ONLY TOOLS LISTED BELOW. DO NOT USE UNLISTED TOOLS.
 | `browser_open_tab`            | Open a new browser tab            |
 | `browser_switch_tab`          | Switch between tabs               |
 | `browser_close`               | Close browser/tab                 |
+
+### Pexels — Media Assets
+
+| Tool                          | Description                       |
+| ----------------------------- | --------------------------------- |
+| `pexels_search_photos`        | Search for photos                 |
+| `pexels_get_photo`            | Get a specific photo by ID        |
+| `pexels_search_videos`        | Search for videos                 |
+| `pexels_get_video`            | Get a specific video by ID        |
+| `pexels_curated_photos`       | Get curated photos                |
+| `pexels_popular_videos`       | Get popular videos                |
 
 ### Chrome DevTools — Browser Inspection
 
@@ -858,7 +871,7 @@ All version-gated content must have clear markers:
 | Situation          | Action                                            |
 | ------------------ | ------------------------------------------------- |
 | IGNITE.md missing  | Request user to provide or restore                |
-| CONTEXT.md missing | Operate with IGNITE.md alone (reduced capability) |
+| AGENT.md missing | Operate with IGNITE.md alone (reduced capability) |
 | Both missing       | Request document restoration before proceeding    |
 
 ### Internal Contradictions
@@ -866,7 +879,7 @@ All version-gated content must have clear markers:
 | Location          | Resolution                                       |
 | ----------------- | ------------------------------------------------ |
 | Within IGNITE.md  | Report contradiction, use more recent rule       |
-| Within CONTEXT.md | Report contradiction, use foundational principle |
+| Within AGENT.md | Report contradiction, use foundational principle |
 | Cross-document    | Apply priority/tie-breaking rules                |
 
 ### Agent Disagreement
@@ -1013,18 +1026,6 @@ vi.advanceTimersByTime(1000);
 - Monitor Core Web Vitals regularly
 
 ---
-
-**DOCUMENT VERSION: 2.0**
-**Last Updated: Per DOCUMENTATION-SPEC.md**
-**Word Count Target: 5,000-10,000 words**
-**Total Skills in Market: 43**
-
----
-
-**DOCUMENT VERSION: 2.0**
-**Last Updated: Per DOCUMENTATION-SPEC.md**
-**Word Count Target: 5,000-10,000 words**
-**Total Skills in Market: 43**
 
 **zod-validation-schema-design** — Runtime validation, schema definition, TypeScript type inference. Schema composition, .transform(), .discriminatedUnion(), error handling.
 

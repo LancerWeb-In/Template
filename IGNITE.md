@@ -99,7 +99,7 @@ else
 3. Inspect `package.json` and `src/components/`
 4. Ask questions about target audience and brand personality
 5. Draft design specification with layout, components, visual direction
-6. Generate asset prompts (image AI prompts)
+6. Source placeholder assets (images/videos) via Pexels MCP or generate asset prompts
 
 ---
 
@@ -304,7 +304,7 @@ sm: 640px  | md: 768px  | lg: 1024px  | xl: 1280px  | 2xl: 1536px
 | Task                    | Skills                                                                               |
 | ----------------------- | ------------------------------------------------------------------------------------ |
 | **Initial planning**    | `ground-truth-memory`                                                                |
-| **Design**              | `cinematic-components`, `brand-guidelines`, `frontend-design`                        |
+| **Design**              | `cinematic-components`, `brand-guidelines`, `frontend-design`, `pexels`              |
 | **Next.js Core**        | `nextjs-16`, `react-best-practices`                                                  |
 | **Next.js Middleware**  | `nextjs-middleware`                                                                  |
 | **Next.js Performance** | `nextjs-performance`, `cache-components`, `server-components`                        |
@@ -353,7 +353,7 @@ src/
 
 1. [ ] Detected task type and identified phases to execute
 2. [ ] Activated skills for detected task type
-3. [ ] Read context files only if required
+3. [ ] Read agent files only if required
 4. [ ] Understood conditional phase workflow
 5. [ ] Will execute phases in order
 6. [ ] Will commit after each logical unit
@@ -362,9 +362,3 @@ src/
 **Reply with CONFIRMED to proceed.**
 
 ---
-
-**DOCUMENT VERSION: 2.0**
-**Last Updated: Per DOCUMENTATION-SPEC.md**
-**Word Count Target: 1,500-3,000 words**
-**Total Skills in Market: 43**
-**Status: COMPLETE — All 43 market skills referenced**
